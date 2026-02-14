@@ -673,11 +673,6 @@
       white-space:nowrap;
       text-shadow: 0 10px 22px rgba(0,0,0,.55);
     }
-    .menuNote{
-      margin-top:12px;
-      color: rgba(246,244,239,.66);
-      font-size:.92rem;
-    }
 
     /* Reviews */
     .reviews{
@@ -792,6 +787,11 @@
     .wa:hover{transform:translateY(-2px); box-shadow: 0 22px 70px rgba(0,0,0,.55)}
     @media (max-width: 768px){
       .wa{width:66px;height:66px;font-size:28px}
+    }
+
+    /* Reduce motion */
+    @media (prefers-reduced-motion: reduce){
+      *{animation:none!important; transition:none!important; scroll-behavior:auto!important}
     }
   </style>
 </head>
@@ -916,7 +916,7 @@
     </div>
   </section>
 
-  <!-- MENU (fixed + photos + tabs) -->
+  <!-- MENU -->
   <section id="menu">
     <div class="wrap">
       <div class="sectionHead reveal">
@@ -925,7 +925,7 @@
           <h2>Populaire keuzes</h2>
         </div>
         <p>
-          Menu is gefixt: tabs werken, items zien er echt uit, en elke sectie heeft de juiste foto (pizza / snacks / drinken).
+          Bekijk de selectie per categorie. Elke sectie heeft een bijpassende foto.
         </p>
       </div>
 
@@ -945,15 +945,11 @@
           <div class="menuPhoto" id="menuPhoto" aria-hidden="true"></div>
 
           <div class="items" id="menuItems"></div>
-
-          <div class="menuNote" id="menuNote">
-            Tip: Voeg later echte prijzen toe + foto’s per item voor een top conversie.
-          </div>
         </div>
 
         <div class="menuCard reveal">
           <div class="menuHeader">
-            <h3>Quick info</h3>
+            <h3>In één oogopslag</h3>
             <span class="tag">Snel • helder</span>
           </div>
           <div class="items">
@@ -990,7 +986,7 @@
           <div class="chip"><b>Reviews</b> • 5.0 (17)</div>
           <h2>Wat gasten zeggen</h2>
         </div>
-        <p>Enkele echte feedbackpunten uit Google reviews (zoals jij stuurde): kwaliteit, service en perfect deeg.</p>
+        <p>Feedback uit Google reviews: kwaliteit, service en perfect deeg.</p>
       </div>
 
       <div class="reviews">
@@ -1040,9 +1036,6 @@
             <a class="btn primary" href="https://www.google.com/maps?q=Oostzeedijk%20243,%203061%20CX%20Rotterdam&output=embed" target="_blank" rel="noopener">Open in Maps</a>
             <a class="btn" href="tel:+31643496926">Bel direct</a>
           </div>
-
-          <div style="height:10px"></div>
-          <p class="fine">Tip: later kun je hier een “Bestel online” knop toevoegen als de klant dat wil.</p>
         </div>
 
         <div class="reveal" style="min-height:380px">
@@ -1062,14 +1055,13 @@
       <div>
         <h3 style="font-size:1.5rem">Mozaik Pizzeria Eethuis</h3>
         <p style="margin-top:10px">
-          Een moderne, snelle en stijlvolle demo-website die je direct kunt verkopen aan je klant.
-          Volgende stap: echte menufoto’s, bestelknop, en een speciale “Aanbiedingen” sectie.
+          Vers gebakken pizza’s, snelle service en een warme sfeer in hartje Rotterdam.
         </p>
       </div>
       <div class="fine">
         <div><b>Adres:</b> Oostzeedijk 243, Rotterdam</div>
         <div style="margin-top:6px"><b>Tel:</b> 06 43496926</div>
-        <div style="margin-top:6px">© 2026 • Demo by Junayd (JHWEBDEV)</div>
+        <div style="margin-top:6px">© 2026</div>
       </div>
     </div>
   </footer>
@@ -1081,7 +1073,6 @@
   <script>
     // =========================
     // IMAGE SET (only pizza + correct drinks)
-    // (No cats, no sunsets)
     // =========================
     const IMG = {
       // PIZZAS (high-quality / appetizing)
@@ -1092,10 +1083,10 @@
       p3:      "https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?auto=format&fit=crop&w=1600&q=80",
       p4:      "https://images.unsplash.com/photo-1520201163981-8cc95007dd2a?auto=format&fit=crop&w=1600&q=80",
 
-      // SNACKS (no pizza here, but correct to content)
+      // SNACKS
       snacks:  "https://images.unsplash.com/photo-1598679253544-2c97992403ea?auto=format&fit=crop&w=1600&q=80",
 
-      // DRINKS (only for drinks tab)
+      // DRINKS
       drinks:  "https://images.unsplash.com/photo-1544145945-f90425340c7e?auto=format&fit=crop&w=1600&q=80"
     };
 
@@ -1125,14 +1116,13 @@
     safeSetCssVar(document.getElementById("card3"), "--cardimg", IMG.p3, IMG.p2);
 
     // =========================
-    // MENU (fixed + real content)
+    // MENU
     // =========================
     const MENU = {
       pizza: {
         title: "Signature Pizza’s",
         tag: "Vers • rijk belegd",
         photo: IMG.p4,
-        note: "Tip: Zet hier later echte prijzen + ‘Bestel nu’ knop voor maximale conversie.",
         items: [
           { name:"Mozaik Special", desc:"Chef’s mix • rijk beleg • perfect gebakken bodem", price:"—" },
           { name:"Margherita Classico", desc:"Tomaat • mozzarella • basilicum • pure smaak", price:"—" },
@@ -1144,7 +1134,6 @@
         title: "Snacks & Sides",
         tag: "Snel • lekker",
         photo: IMG.snacks,
-        note: "Tip: Voeg combi-deals toe (pizza + drink) — werkt supergoed voor upsell.",
         items: [
           { name:"Loaded Fries", desc:"Goudbruin • rijk • ideaal om te delen", price:"—" },
           { name:"Garlic Bread", desc:"Knapperig • boter & knoflook • zachte bite", price:"—" },
@@ -1155,7 +1144,6 @@
         title: "Drinken",
         tag: "Koud • fris",
         photo: IMG.drinks,
-        note: "Tip: Zet hier ‘blik/fles’ erbij en eventueel ‘energy’ voor extra omzet.",
         items: [
           { name:"Frisdrank", desc:"Altijd koud geserveerd", price:"—" },
           { name:"Water", desc:"Still of bruis", price:"—" },
@@ -1167,7 +1155,6 @@
     const menuTitle = document.getElementById("menuTitle");
     const menuTag = document.getElementById("menuTag");
     const menuItems = document.getElementById("menuItems");
-    const menuNote = document.getElementById("menuNote");
     const menuPhoto = document.getElementById("menuPhoto");
     const tabs = document.querySelectorAll(".tab");
 
@@ -1175,7 +1162,6 @@
       const m = MENU[key];
       menuTitle.textContent = m.title;
       menuTag.textContent = m.tag;
-      menuNote.textContent = m.note;
 
       // menu photo (correct per section)
       safeSetCssVar(menuPhoto, "--menuphoto", m.photo, IMG.p2);
