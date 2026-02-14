@@ -855,7 +855,7 @@
       <aside class="heroCard reveal" aria-label="Sfeerbeeld" id="heroCard">
         <div class="img" aria-hidden="true"></div>
 
-      
+        <div class="rotLabel">Signature pizza • draait zachtjes</div>
         <div class="rotPizzaWrap" aria-label="Draaiende pizza">
           <img class="rotPizza" id="rotPizza" alt="Draaiende pizza" loading="eager" decoding="async">
         </div>
@@ -924,7 +924,9 @@
           <div class="chip"><b>Menu</b> • strak + duidelijk</div>
           <h2>Populaire keuzes</h2>
         </div>
-       
+        <p>
+          Menu is gefixt: tabs werken, items zien er echt uit, en elke sectie heeft de juiste foto (pizza / snacks / drinken).
+        </p>
       </div>
 
       <div class="menuTabs reveal" role="tablist" aria-label="Menu tabs">
@@ -944,7 +946,9 @@
 
           <div class="items" id="menuItems"></div>
 
-        
+          <div class="menuNote" id="menuNote">
+            Tip: Voeg later echte prijzen toe + foto’s per item voor een top conversie.
+          </div>
         </div>
 
         <div class="menuCard reveal">
@@ -985,7 +989,9 @@
         <div>
           <div class="chip"><b>Reviews</b> • 5.0 (17)</div>
           <h2>Wat gasten zeggen</h2>
-       
+        </div>
+        <p>Enkele echte feedbackpunten uit Google reviews (zoals jij stuurde): kwaliteit, service en perfect deeg.</p>
+      </div>
 
       <div class="reviews">
         <div class="review reveal">
@@ -1035,6 +1041,10 @@
             <a class="btn" href="tel:+31643496926">Bel direct</a>
           </div>
 
+          <div style="height:10px"></div>
+          <p class="fine">Tip: later kun je hier een “Bestel online” knop toevoegen als de klant dat wil.</p>
+        </div>
+
         <div class="reveal" style="min-height:380px">
           <iframe
             title="Mozaik Pizzeria Eethuis - Google Maps"
@@ -1051,7 +1061,10 @@
     <div class="wrap foot">
       <div>
         <h3 style="font-size:1.5rem">Mozaik Pizzeria Eethuis</h3>
-       
+        <p style="margin-top:10px">
+          Een moderne, snelle en stijlvolle demo-website die je direct kunt verkopen aan je klant.
+          Volgende stap: echte menufoto’s, bestelknop, en een speciale “Aanbiedingen” sectie.
+        </p>
       </div>
       <div class="fine">
         <div><b>Adres:</b> Oostzeedijk 243, Rotterdam</div>
@@ -1119,7 +1132,7 @@
         title: "Signature Pizza’s",
         tag: "Vers • rijk belegd",
         photo: IMG.p4,
-       
+        note: "Tip: Zet hier later echte prijzen + ‘Bestel nu’ knop voor maximale conversie.",
         items: [
           { name:"Mozaik Special", desc:"Chef’s mix • rijk beleg • perfect gebakken bodem", price:"—" },
           { name:"Margherita Classico", desc:"Tomaat • mozzarella • basilicum • pure smaak", price:"—" },
@@ -1131,7 +1144,7 @@
         title: "Snacks & Sides",
         tag: "Snel • lekker",
         photo: IMG.snacks,
-       
+        note: "Tip: Voeg combi-deals toe (pizza + drink) — werkt supergoed voor upsell.",
         items: [
           { name:"Loaded Fries", desc:"Goudbruin • rijk • ideaal om te delen", price:"—" },
           { name:"Garlic Bread", desc:"Knapperig • boter & knoflook • zachte bite", price:"—" },
@@ -1142,6 +1155,7 @@
         title: "Drinken",
         tag: "Koud • fris",
         photo: IMG.drinks,
+        note: "Tip: Zet hier ‘blik/fles’ erbij en eventueel ‘energy’ voor extra omzet.",
         items: [
           { name:"Frisdrank", desc:"Altijd koud geserveerd", price:"—" },
           { name:"Water", desc:"Still of bruis", price:"—" },
@@ -1241,4 +1255,3 @@
   </script>
 </body>
 </html>
-
