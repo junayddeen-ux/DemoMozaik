@@ -1,0 +1,1437 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mozaik Pizzeria Eethuis | Rotterdam</title>
+
+  <!-- Fonts (clean + premium) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      /* LUXE DONKER GROEN PALETTE */
+      --bg:#060909;
+      --panel:rgba(255,255,255,.06);
+      --panel2:rgba(255,255,255,.085);
+      --stroke:rgba(255,255,255,.12);
+      --text:#f6f4ef;
+      --muted:rgba(246,244,239,.72);
+
+      --green:#0f7a58;
+      --green2:#19c37d;
+      --gold:#d4af37;
+
+      --shadow: 0 28px 90px rgba(0,0,0,.65);
+      --shadow2: 0 18px 55px rgba(0,0,0,.55);
+      --r:26px;
+
+      /* easing (voor luxe motion) */
+      --easeOut: cubic-bezier(.16,1,.3,1);
+      --easeSoft: cubic-bezier(.2,.85,.2,1);
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1100px 700px at 20% -10%, rgba(25,195,125,.18), transparent 58%),
+        radial-gradient(900px 650px at 86% 0%, rgba(15,122,88,.16), transparent 55%),
+        radial-gradient(900px 700px at 50% 110%, rgba(212,175,55,.10), transparent 55%),
+        linear-gradient(180deg, #050707, #070b0a 55%, #040606);
+      overflow-x:hidden;
+    }
+
+    /* Subtle grain */
+    .grain{
+      pointer-events:none;
+      position:fixed; inset:0;
+      opacity:.06;
+      mix-blend-mode:overlay;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.16'/%3E%3C/svg%3E");
+      z-index:0;
+    }
+
+    /* Ambient glow blobs (luxury, GREEN) */
+    .blobs{position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.55;}
+    .blob{
+      position:absolute;
+      width:520px; height:520px;
+      border-radius:999px;
+      filter: blur(70px);
+      background: radial-gradient(circle at 30% 30%, rgba(25,195,125,.20), rgba(15,122,88,.10), transparent 70%);
+      animation: floaty 10s var(--easeOut) infinite;
+      mix-blend-mode:screen;
+    }
+    .blob.b2{
+      width:620px;height:620px;
+      left:auto; right:-220px; top:-160px;
+      background: radial-gradient(circle at 30% 30%, rgba(212,175,55,.16), rgba(25,195,125,.10), transparent 70%);
+      animation-duration: 12s;
+      animation-delay: -2.5s;
+    }
+    .blob.b1{left:-220px; top:120px;}
+    @keyframes floaty{
+      0%,100%{transform: translate(0,0) scale(1)}
+      50%{transform: translate(18px,-14px) scale(1.03)}
+    }
+
+    h1,h2,h3{
+      font-family:"DM Serif Display", serif;
+      margin:0;
+      letter-spacing:.3px;
+      text-shadow: 0 10px 26px rgba(0,0,0,.6);
+    }
+    p{margin:0; color:var(--muted); line-height:1.75}
+    a{color:inherit; text-decoration:none}
+    .wrap{width:min(1180px, 92vw); margin:0 auto; position:relative; z-index:1;}
+
+    /* NAV */
+    .nav{
+      position:fixed;
+      top:18px; left:50%;
+      transform:translateX(-50%);
+      width:min(1120px, 94vw);
+      display:grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items:center;
+      padding:12px 14px;
+      border-radius:999px;
+      background:rgba(10,14,12,.60);
+      backdrop-filter: blur(16px);
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow: 0 22px 70px rgba(0,0,0,.55);
+      z-index:50;
+      transition: transform .35s var(--easeOut), box-shadow .35s var(--easeOut), background .35s var(--easeOut);
+    }
+
+    .brand{ justify-self:start }
+    .links{ justify-self:center }
+    .cta{ justify-self:end }
+    .nav.scrolled{
+      transform:translateX(-50%) scale(.98);
+      background:rgba(10,14,12,.52);
+      box-shadow: 0 16px 50px rgba(0,0,0,.45);
+    }
+
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      padding-left:6px;
+      min-width:180px;
+    }
+    .logoMark{
+      width:36px;height:36px;border-radius:14px;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(25,195,125,.95), rgba(15,122,88,.55) 52%, rgba(255,255,255,.08) 78%),
+        linear-gradient(135deg, rgba(15,122,88,.65), rgba(25,195,125,.22));
+      border:1px solid rgba(255,255,255,.14);
+      box-shadow: 0 18px 55px rgba(25,195,125,.10);
+      position:relative;
+      overflow:hidden;
+    }
+    .logoMark:after{
+      content:"";
+      position:absolute; inset:-40%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.22), transparent);
+      transform: rotate(18deg) translateX(-70%);
+      animation: sheen 6.5s ease-in-out infinite;
+      opacity:.8;
+    }
+    @keyframes sheen{
+      0%{transform: rotate(18deg) translateX(-80%)}
+      45%{transform: rotate(18deg) translateX(140%)}
+      100%{transform: rotate(18deg) translateX(140%)}
+    }
+
+    .brandText strong{
+      display:block;
+      font-weight:700;
+      letter-spacing:.4px;
+      color:#fff;
+      font-size:.98rem;
+      line-height:1.05;
+    }
+    .brandText span{
+      display:block;
+      font-size:.78rem;
+      color:rgba(246,244,239,.7);
+      margin-top:2px;
+      letter-spacing:.2px;
+    }
+
+    .links{
+      display:flex; align-items:center; gap:6px;
+      justify-self:center;
+      padding:6px 8px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      z-index:52;
+      pointer-events:auto;
+    }
+    .links a{
+      font-size:.9rem;
+      color:rgba(246,244,239,.86);
+      padding:8px 10px;
+      border-radius:999px;
+      transition:.2s var(--easeOut);
+    }
+    .links a:hover{
+      background: rgba(255,255,255,.08);
+      color:#fff;
+    }
+
+    .cta{
+      display:flex; align-items:center; gap:10px;
+      min-width:180px;
+      justify-content:flex-end;
+      padding-right:6px;
+    }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding:11px 14px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color:rgba(246,244,239,.95);
+      font-weight:600;
+      font-size:.92rem;
+      cursor:pointer;
+      transition: transform .22s var(--easeOut), background .22s var(--easeOut), border-color .22s var(--easeOut), box-shadow .22s var(--easeOut);
+      user-select:none;
+      box-shadow: 0 16px 46px rgba(0,0,0,.25);
+      position:relative;
+      overflow:hidden;
+    }
+    .btn:before{
+      content:"";
+      position:absolute; inset:-40%;
+      background: conic-gradient(from 180deg, transparent, rgba(255,255,255,.14), transparent);
+      transform: rotate(0deg);
+      opacity:0;
+      transition: opacity .25s var(--easeOut);
+    }
+    .btn:hover{transform:translateY(-2px); background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.2); box-shadow:0 22px 70px rgba(0,0,0,.32)}
+    .btn:hover:before{opacity:1; animation: btnSheen 1.25s var(--easeOut) forwards}
+    @keyframes btnSheen{to{transform: rotate(360deg)}}
+
+    .btn.primary{
+      border-color: rgba(25,195,125,.55);
+      background: linear-gradient(135deg, rgba(15,122,88,.95), rgba(25,195,125,.88));
+      color:#06110c;
+      box-shadow: 0 22px 70px rgba(25,195,125,.16);
+    }
+    .btn.primary:hover{transform:translateY(-3px)}
+
+    .burger{display:none}
+    @media (max-width: 880px){
+      .links{
+        position:fixed;
+        top:78px; left:50%;
+        transform:translateX(-50%) translateY(-6px);
+        width:min(560px, 92vw);
+        flex-direction:column;
+        gap:8px;
+        padding:12px;
+        background: rgba(8,12,10,.82);
+        border:1px solid rgba(255,255,255,.12);
+        box-shadow: var(--shadow2);
+        opacity:0; pointer-events:none;
+        transition: opacity .18s ease, transform .18s ease;
+      }
+      .links.open{opacity:1; pointer-events:auto; transform:translateX(-50%) translateY(0)}
+      .links a{width:100%; text-align:center}
+      .burger{
+        display:inline-flex;
+        width:44px; height:44px;
+        border-radius:999px;
+        border:1px solid rgba(255,255,255,.14);
+        background: rgba(255,255,255,.05);
+        align-items:center; justify-content:center;
+        cursor:pointer;
+      }
+      .burger i{
+        width:18px; height:2px; background: rgba(246,244,239,.88);
+        position:relative; border-radius:2px;
+      }
+      .burger i:before,.burger i:after{
+        content:""; position:absolute; left:0; width:18px; height:2px;
+        background: rgba(246,244,239,.88); border-radius:2px;
+      }
+      .burger i:before{top:-6px}
+      .burger i:after{top:6px}
+      .cta{gap:8px; min-width:auto}
+      .brand{min-width:auto}
+    }
+
+    /* HERO */
+    .hero{
+      padding-top:120px;
+      padding-bottom:46px;
+    }
+    .heroGrid{
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap:26px;
+      align-items:center;
+      min-height: calc(100vh - 150px);
+    }
+    @media (max-width: 980px){
+      .heroGrid{grid-template-columns:1fr; min-height:auto}
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+      color: rgba(246,244,239,.88);
+      font-size:.82rem;
+      letter-spacing:.2px;
+      width:fit-content;
+    }
+    .pill .star{
+      color: var(--gold);
+      text-shadow: 0 0 18px rgba(212,175,55,.35);
+      font-weight:800;
+    }
+    .hero h1{
+      margin-top:16px;
+      font-size: clamp(2.8rem, 5vw, 4.6rem);
+      line-height:1.02;
+      letter-spacing:.6px;
+    }
+    .accent2{
+      background: linear-gradient(135deg, rgba(25,195,125,1), rgba(15,122,88,1));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+    }
+    .hero p{margin-top:14px; max-width:60ch; font-size:1.02rem}
+    .heroRow{
+      margin-top:22px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+    .mini{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      color: rgba(246,244,239,.9);
+      font-size:.9rem;
+      transition: transform .22s var(--easeOut), background .22s var(--easeOut);
+    }
+    .mini:hover{transform: translateY(-2px); background: rgba(255,255,255,.07)}
+    .mini b{color:#fff}
+    .heroActions{
+      margin-top:22px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    /* Hero visual */
+    .heroCard{
+      border-radius: var(--r);
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow: var(--shadow);
+      background: rgba(255,255,255,.05);
+      min-height: 540px;
+      position:relative;
+      isolation:isolate;
+      transform-style: preserve-3d;
+      transition: transform .25s var(--easeOut);
+    }
+    .heroCard:hover{transform: translateY(-4px)}
+    .heroCard .img{
+      position:absolute; inset:0;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.22), rgba(0,0,0,.84)),
+        var(--heroimg) center/cover no-repeat;
+      transform: scale(1.05);
+      filter: saturate(1.12) contrast(1.05);
+      z-index:0;
+    }
+    .heroCard:before{
+      content:"";
+      position:absolute; inset:-1px;
+      background:
+        radial-gradient(700px 540px at 60% 20%, rgba(25,195,125,.16), transparent 55%),
+        radial-gradient(520px 520px at 18% 70%, rgba(15,122,88,.14), transparent 55%),
+        radial-gradient(560px 560px at 90% 90%, rgba(212,175,55,.10), transparent 55%);
+      z-index:1;
+      pointer-events:none;
+    }
+    .heroCard .content{
+      position:relative;
+      z-index:2;
+      padding:26px;
+      min-height:540px;
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-end;
+      gap:12px;
+    }
+    .badgeRow{display:flex; gap:10px; flex-wrap:wrap}
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 12px;
+      border-radius:999px;
+      background: rgba(0,0,0,.22);
+      border:1px solid rgba(255,255,255,.12);
+      color: rgba(246,244,239,.92);
+      font-size:.88rem;
+    }
+    .badge i{
+      width:8px;height:8px;border-radius:50%;
+      background: linear-gradient(135deg, var(--green2), var(--green));
+      display:inline-block;
+      box-shadow: 0 0 14px rgba(25,195,125,.25);
+    }
+    .heroCard h3{font-size:1.7rem}
+    .subline{
+      height:1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.18), transparent);
+      margin-top:10px;
+    }
+
+    /* Logo / Pizza container */
+    .rotPizzaWrap{
+      position:absolute;
+      top:22px;
+      right:22px;
+      width: min(260px, 46vw);
+      aspect-ratio:1/1;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.10), rgba(0,0,0,.26) 62%);
+      box-shadow: 0 26px 90px rgba(0,0,0,.65);
+      display:grid;
+      place-items:center;
+      overflow:hidden;
+      z-index:3;
+      transform: translateZ(0);
+    }
+    /* Ring animation */
+    .rotPizzaWrap:before{
+      content:"";
+      position:absolute; inset:-35%;
+      background: conic-gradient(from 90deg, rgba(212,175,55,0), rgba(212,175,55,.22), rgba(212,175,55,0));
+      animation: ringSpin 8s linear infinite;
+      opacity:.85;
+    }
+    @keyframes ringSpin{to{transform:rotate(360deg)}}
+
+    /* rotating logo animation */
+    @keyframes pizzaSpin{to{transform:rotate(360deg)}}
+
+    #rotPizza{
+      width:85%; height:85%; border-radius:999px; object-fit:cover;
+      transform-origin:center center; animation: pizzaSpin 14s linear infinite;
+      border:1px solid rgba(255,255,255,.12); box-shadow: 0 18px 70px rgba(0,0,0,.55);
+      display:block;
+      z-index:2;
+    }
+    .rotPizzaWrap:hover #rotPizza{ animation-play-state: paused; }
+
+    /* AANGEPASTE LOGO STIJL (geen draaien, wel passen) */
+    .logoImg {
+      width: 85%;
+      height: 85%;
+      object-fit: contain; /* Zorgt dat het hele logo zichtbaar is */
+      filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
+      position: relative;
+      z-index: 2;
+      /* Geen animatie voor het logo zelf */
+    }
+
+    .rotLabel{
+      position:absolute;
+      left:18px;
+      top:22px;
+      z-index:3;
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.20);
+      backdrop-filter: blur(10px);
+      color: rgba(246,244,239,.9);
+      font-size:.86rem;
+      box-shadow: 0 14px 40px rgba(0,0,0,.35);
+    }
+    @media (max-width: 980px){
+      .rotPizzaWrap{
+        position:relative;
+        top:auto; right:auto;
+        margin: 18px 0 0 auto;
+      }
+      .rotLabel{position:relative; left:auto; top:auto; width:fit-content; margin: 14px 0 0 auto;}
+    }
+
+    /* Sections */
+    section{padding: 88px 0}
+    .sectionHead{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:22px;
+      margin-bottom: 26px;
+    }
+    .sectionHead h2{
+      font-size: clamp(1.9rem, 3.1vw, 2.85rem);
+      letter-spacing:.3px;
+    }
+    .sectionHead p{max-width:60ch}
+
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.16);
+      color: rgba(246,244,239,.88);
+      font-size:.82rem;
+    }
+    .chip b{color:var(--gold)}
+
+    .grid3{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:16px;
+    }
+    @media (max-width: 980px){ .grid3{grid-template-columns:1fr} }
+
+    /* photoGrid removed per user request (only hero keeps pizza images) */
+
+    /* Cards with pizza photo background */
+    .card{
+      background: var(--panel);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius: var(--r);
+      padding:20px;
+      box-shadow: var(--shadow2);
+      position:relative;
+      overflow:hidden;
+      transition: transform .25s var(--easeOut), background .25s var(--easeOut), border-color .25s var(--easeOut);
+      transform-style:preserve-3d;
+    }
+    .card:before{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,.62)),
+        var(--cardimg) center/cover no-repeat;
+      opacity:.62;
+      transform: scale(1.04);
+      pointer-events:none;
+    }
+    .card:after{
+      content:"";
+      position:absolute; inset:-30%;
+      background: radial-gradient(circle at 30% 30%, rgba(25,195,125,.16), transparent 60%);
+      opacity:.8;
+      pointer-events:none;
+      transform: rotate(10deg);
+    }
+    .card > *{position:relative; z-index:1}
+    .card:hover{
+      transform: translateY(-5px);
+      background: var(--panel2);
+      border-color: rgba(255,255,255,.18);
+    }
+    .cardTop{
+      display:flex; align-items:center; justify-content:space-between; gap:14px;
+      margin-bottom:10px;
+    }
+    .icon{
+      width:44px;height:44px;border-radius:16px;
+      display:flex; align-items:center; justify-content:center;
+      border:1px solid rgba(255,255,255,.14);
+      background: linear-gradient(135deg, rgba(25,195,125,.18), rgba(15,122,88,.08));
+      box-shadow: 0 16px 45px rgba(0,0,0,.28);
+    }
+    .icon:after{
+      content:"";
+      width:16px;height:16px;border-radius:6px;
+      border:1px solid rgba(255,255,255,.35);
+      transform: rotate(45deg);
+      opacity:.8;
+    }
+    .card h3{font-size:1.35rem}
+    .card p{margin-top:8px; color:rgba(246,244,239,.78)}
+
+    /* Menu */
+    .menuGrid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap:16px;
+      margin-top: 8px;
+    }
+    .menuCard{
+      grid-column: span 6;
+      background: var(--panel);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius: var(--r);
+      padding:18px;
+      box-shadow: var(--shadow2);
+      overflow:hidden;
+      position:relative;
+    }
+    .menuCard.big{grid-column: span 12;}
+    @media (max-width: 980px){
+      .menuCard,.menuCard.big{grid-column: span 12;}
+    }
+    .menuHeader{
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      margin-bottom:10px;
+    }
+    .menuHeader h3{font-size:1.35rem}
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:7px 10px;
+      border-radius:999px;
+      font-size:.82rem;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.16);
+      color: rgba(246,244,239,.85);
+    }
+
+    /* Menu tabs */
+    .menuTabs{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      padding:6px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.16);
+      width:fit-content;
+      margin: 8px 0 12px;
+    }
+    .tab{
+      border:1px solid transparent;
+      background: transparent;
+      color: rgba(246,244,239,.88);
+      padding:10px 12px;
+      border-radius:999px;
+      font-weight:700;
+      font-size:.9rem;
+      cursor:pointer;
+      transition: transform .18s var(--easeOut), background .18s var(--easeOut), border-color .18s var(--easeOut), color .18s var(--easeOut);
+    }
+    .tab:hover{transform: translateY(-1px)}
+    .tab.active{
+      background: rgba(25,195,125,.14);
+      border-color: rgba(25,195,125,.28);
+      color:#fff;
+    }
+
+    .menuPhoto{
+      height:170px;
+      border-radius:22px;
+      border:1px solid rgba(255,255,255,.12);
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.10), rgba(0,0,0,.64)),
+        var(--menuphoto) center/cover no-repeat;
+      box-shadow: 0 18px 55px rgba(0,0,0,.35);
+      overflow:hidden;
+      margin: 10px 0 12px;
+      position:relative;
+      transform: translateZ(0);
+    }
+    .menuPhoto:after{
+      content:"";
+      position:absolute; inset:-40%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.10), transparent 62%);
+      opacity:.8;
+      pointer-events:none;
+      transform: rotate(12deg);
+    }
+
+    .items{
+      display:grid;
+      gap:10px;
+      margin-top:10px;
+    }
+    .item{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:14px;
+      padding:12px;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.14);
+      transition: transform .18s var(--easeOut), border-color .18s var(--easeOut), background .18s var(--easeOut);
+    }
+    .item:hover{
+      transform: translateY(-2px);
+      background: rgba(0,0,0,.18);
+      border-color: rgba(255,255,255,.14);
+    }
+    .item b{color:#fff}
+    .item small{display:block; color:rgba(246,244,239,.70); margin-top:4px; line-height:1.5}
+    .price{
+      color: var(--gold);
+      font-weight:700;
+      letter-spacing:.2px;
+      white-space:nowrap;
+      text-shadow: 0 10px 22px rgba(0,0,0,.55);
+    }
+
+    /* Reviews */
+    .reviews{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:16px;
+      margin-top: 10px;
+    }
+    @media (max-width: 980px){ .reviews{grid-template-columns:1fr} }
+    .review{
+      background: var(--panel);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius: var(--r);
+      padding:18px;
+      box-shadow: var(--shadow2);
+      position:relative;
+      overflow:hidden;
+      transition: transform .2s var(--easeOut), border-color .2s var(--easeOut);
+    }
+    .review:hover{transform: translateY(-4px); border-color: rgba(255,255,255,.16)}
+    .stars{color: var(--gold); letter-spacing:2px}
+    .review p{margin-top:10px; color:rgba(246,244,239,.82)}
+    .who{margin-top:12px; color:rgba(246,244,239,.72); font-weight:600}
+
+    /* Contact */
+    .contactGrid{
+      display:grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap:16px;
+      align-items:stretch;
+    }
+    @media (max-width: 980px){ .contactGrid{grid-template-columns:1fr} }
+    .contactCard{
+      background: var(--panel);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius: var(--r);
+      padding:18px;
+      box-shadow: var(--shadow2);
+    }
+    .list{
+      display:grid;
+      gap:10px;
+      margin-top:10px;
+    }
+    .row{
+      display:flex;
+      justify-content:space-between;
+      gap:14px;
+      padding:12px;
+      border-radius:18px;
+      background: rgba(0,0,0,.14);
+      border:1px solid rgba(255,255,255,.10);
+    }
+    .row span{color:rgba(246,244,239,.85)}
+    .row b{color:#fff}
+    iframe{
+      width:100%;
+      height:100%;
+      min-height: 380px;
+      border:0;
+      border-radius: var(--r);
+      box-shadow: var(--shadow2);
+    }
+
+    /* Footer */
+    footer{
+      padding:56px 0;
+      border-top:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.20);
+    }
+    .foot{
+      display:flex;
+      justify-content:space-between;
+      gap:18px;
+      align-items:flex-start;
+      flex-wrap:wrap;
+    }
+    .foot p{max-width: 62ch}
+    .fine{color:rgba(246,244,239,.62); font-size:.9rem}
+
+    /* ✅ REVEAL animation (werkt op scroll) */
+    .reveal{
+      opacity:0;
+      transform: translateY(28px) scale(.99);
+      filter: blur(7px);
+      transition:
+        opacity 900ms var(--easeOut),
+        transform 900ms var(--easeSoft),
+        filter 900ms var(--easeOut);
+      transition-delay: var(--d, 0ms);
+      will-change: opacity, transform, filter;
+    }
+    .reveal.in{
+      opacity:1;
+      transform:none;
+      filter:none;
+    }
+
+    /* Floating WhatsApp */
+    .wa{
+      position:fixed;
+      right:20px;
+      bottom:20px;
+      width:60px;
+      height:60px;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background: #25D366;
+      color:#fff;
+      font-size:26px;
+      border:1px solid rgba(255,255,255,.18);
+      box-shadow: 0 18px 55px rgba(0,0,0,.45);
+      z-index:60;
+      transition: transform .18s var(--easeOut), box-shadow .18s var(--easeOut);
+    }
+    .wa:hover{transform:translateY(-2px); box-shadow: 0 22px 70px rgba(0,0,0,.55)}
+    @media (max-width: 768px){
+      .wa{width:66px;height:66px;font-size:28px}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="grain"></div>
+  <div class="blobs">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+  </div>
+
+  <!-- NAV -->
+  <header class="nav reveal" id="top">
+    <div class="brand">
+      <div class="logoMark" aria-hidden="true"></div>
+      <div class="brandText">
+        <strong>Mozaik Pizzeria Eethuis</strong>
+        <span>Oostzeedijk 243 • Rotterdam</span>
+      </div>
+    </div>
+
+    <nav class="links" id="navLinks" aria-label="Hoofdnavigatie">
+      <a href="#about">Over ons</a>
+      <a href="#menu">Menu</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="cta">
+      <a class="btn" href="tel:+31643496926">Bel</a>
+      <a class="btn primary" href="#contact">Route</a>
+      <div class="burger" id="burger" aria-label="Menu openen" role="button" tabindex="0"><i></i></div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <main class="hero">
+    <div class="wrap heroGrid">
+      <section class="reveal">
+        <div class="pill"><span class="star">★</span><span><b>5.0</b> Google rating • <b>17</b> reviews • Open tot <b>02:00</b></span></div>
+
+        <h1>Vers gebakken pizza’s, <span class="accent2">perfect deeg</span> en warme gastvrijheid.</h1>
+        <p>
+          Mozaik Pizzeria Eethuis is jouw late-night spot aan de Oostzeedijk in Rotterdam.
+          Van knapperige bodems tot rijk beleg: alles wordt met aandacht bereid — snel, vriendelijk en smaakvol.
+        </p>
+
+        <div class="heroRow">
+          <div class="mini"><b>€</b> Betaalbaar</div>
+          <div class="mini"><b>🔥</b> Vers & warm</div>
+          <div class="mini"><b>🤝</b> Service met glimlach</div>
+        </div>
+
+        <div class="heroActions">
+          <a class="btn primary" href="#menu">Bekijk menu</a>
+          <a class="btn" href="#reviews">Lees reviews</a>
+          <a class="btn" href="tel:+31643496926">Direct bellen</a>
+        </div>
+      </section>
+
+      <aside class="heroCard reveal" aria-label="Sfeerbeeld" id="heroCard">
+        <div class="img" aria-hidden="true"></div>
+
+       <div class="rotLabel">Mozaik Original • since day one</div>
+        <div class="rotPizzaWrap" aria-label="Logo">
+          <img src="mozaik-logo.jpg" class="logoImg" id="rotPizza" alt="Mozaik Logo" loading="eager" decoding="async">
+        </div>
+
+        <div class="content">
+          <div class="badgeRow">
+            <div class="badge"><i></i>Dine-in</div>
+            <div class="badge"><i></i>Afhalen</div>
+            <div class="badge"><i></i>Open tot 02:00</div>
+          </div>
+          <h3>Rotterdam • Oostzeedijk 243</h3>
+          <p>Kom langs voor een snelle bite of een gezellige avond. Altijd vers, altijd vriendelijk.</p>
+          <div class="subline"></div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- ABOUT -->
+  <section id="about" class="reveal">
+    <div class="wrap">
+      <div class="sectionHead reveal">
+        <div>
+          <div class="chip"><b>Mozaik</b> • kwaliteit & comfort</div>
+          <h2>Waarom gasten terugkomen</h2>
+        </div>
+        <p>
+          Onze focus is simpel: consequent goede kwaliteit, een fijne sfeer en service die je onthoudt.
+          Precies zoals het hoort bij jouw vaste pizzeria in de buurt.
+        </p>
+      </div>
+
+      <div class="grid3">
+        <div class="card reveal" id="card1">
+          <div class="cardTop">
+            <h3>Perfect deeg</h3>
+            <div class="icon" aria-hidden="true"></div>
+          </div>
+          <p>Dagelijks vers bereid voor die knapperige bodem en luchtige bite waar mensen over praten.</p>
+        </div>
+      
+
+        <div class="card reveal" id="card2">
+          <div class="cardTop">
+            <h3>Snelle service</h3>
+            <div class="icon" aria-hidden="true"></div>
+          </div>
+          <p>Vriendelijk, duidelijk en efficiënt — ook op drukke momenten. Jij krijgt kwaliteit zonder gedoe.</p>
+        </div>
+
+        <div class="card reveal" id="card3">
+          <div class="cardTop">
+            <h3>Cozy sfeer</h3>
+            <div class="icon" aria-hidden="true"></div>
+          </div>
+          <p>Een warme, toegankelijke plek waar je even kan landen — alleen, met vrienden of familie.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU -->
+  <section id="menu" class="reveal">
+    <div class="wrap">
+      <div class="sectionHead reveal">
+        <div>
+          <div class="chip"><b>Menu</b> • strak + duidelijk</div>
+          <h2>Ons Menu</h2>
+        </div>
+      </div>
+
+      <div class="menuTabs reveal" role="tablist" aria-label="Menu tabs">
+        <button class="tab active" type="button" data-tab="colddrinks" role="tab" aria-selected="true"> Koude Dranken</button>
+        <button class="tab" type="button" data-tab="hotdrinks" role="tab" aria-selected="false"> Warme Dranken</button>
+        <button class="tab" type="button" data-tab="doner" role="tab" aria-selected="false"> Doner</button>
+        <button class="tab" type="button" data-tab="turkishpizza" role="tab" aria-selected="false"> Turkse Pizza</button>
+        <button class="tab" type="button" data-tab="pide" role="tab" aria-selected="false"> Pide</button>
+        <button class="tab" type="button" data-tab="soup" role="tab" aria-selected="false"> Soep</button>
+        <button class="tab" type="button" data-tab="pizza" role="tab" aria-selected="false"> Pizza</button>
+        <button class="tab" type="button" data-tab="pasta" role="tab" aria-selected="false"> Pasta</button>
+      </div>
+
+      <div class="menuGrid">
+        <div class="menuCard big reveal">
+          <div class="menuHeader">
+            <h3 id="menuTitle"> Koude Dranken</h3>
+            <span class="tag" id="menuTag">Vers  koud</span>
+          </div>
+
+          <div class="menuPhoto" id="menuPhoto" aria-hidden="true"></div>
+
+          <div class="items" id="menuItems"></div>
+        </div>
+
+        <div class="menuCard reveal">
+          <div class="menuHeader">
+            <h3>Quick info</h3>
+            <span class="tag">Snel • helder</span>
+          </div>
+          <div class="items">
+            <div class="item">
+              <div><b>Open tot laat</b><small>Perfect voor after-work of late-night cravings.</small></div>
+              <div class="price">02:00</div>
+            </div>
+            <div class="item">
+              <div><b>Locatie</b><small>Oostzeedijk 243, Rotterdam — makkelijk bereikbaar.</small></div>
+              <div class="price">📍</div>
+            </div>
+            <div class="item">
+              <div><b>Bestellen</b><small>Bel of WhatsApp direct voor snelle service.</small></div>
+              <div class="price">📞</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="height:18px"></div>
+
+      <div class="heroRow reveal">
+        <a class="btn primary" href="#contact">Route & openingstijden</a>
+        <a class="btn" href="tel:+31643496926">Bel voor bestelling</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section id="reviews" class="reveal">
+    <div class="wrap">
+      <div class="sectionHead reveal">
+        <div>
+          <div class="chip"><b>Reviews</b> • 5.0 (17)</div>
+          <h2>Wat gasten zeggen</h2>
+        </div>
+        <p>Enkele feedbackpunten: kwaliteit, service en perfect deeg.</p>
+      </div>
+
+      <div class="reviews">
+        <div class="review reveal">
+          <div class="stars">★★★★★</div>
+          <p>“The pizza is so good, dough is perfect and fresh.”</p>
+          <div class="who">— Stella Lowe</div>
+        </div>
+        <div class="review reveal">
+          <div class="stars">★★★★★</div>
+          <p>“Great service and good quality. Nice prices as well.”</p>
+          <div class="who">— Sebastian Ramirez</div>
+        </div>
+        <div class="review reveal">
+          <div class="stars">★★★★★</div>
+          <p>“Affordable and delicious! Very customer-friendly and cozy atmosphere. 100% recommended!”</p>
+          <div class="who">— Adam Kassimi</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="reveal">
+    <div class="wrap">
+      <div class="sectionHead reveal">
+        <div>
+          <div class="chip"><b>Contact</b> • Rotterdam</div>
+          <h2>Bezoek Mozaik</h2>
+        </div>
+        <p>Oostzeedijk 243, 3061 CX Rotterdam • Open tot 02:00 • Bel of navigeer direct.</p>
+      </div>
+
+      <div class="contactGrid">
+        <div class="contactCard reveal">
+          <h3>Gegevens</h3>
+          <div class="list">
+            <div class="row"><span>Adres</span><b>Oostzeedijk 243, 3061 CX</b></div>
+            <div class="row"><span>Stad</span><b>Rotterdam</b></div>
+            <div class="row"><span>Telefoon</span><b>06 43496926</b></div>
+            <div class="row"><span>Status</span><b>Open • sluit 02:00</b></div>
+          </div>
+
+          <div style="height:14px"></div>
+
+          <div class="heroActions">
+            <a class="btn primary" href="https://www.google.com/maps?q=Oostzeedijk%20243,%203061%20CX%20Rotterdam&output=embed" target="_blank" rel="noopener">Open in Maps</a>
+            <a class="btn" href="tel:+31643496926">Bel direct</a>
+          </div>
+        </div>
+
+        <div class="reveal" style="min-height:380px">
+          <iframe
+            title="Mozaik Pizzeria Eethuis - Google Maps"
+            src="https://www.google.com/maps?q=Oostzeedijk%20243,%203061%20CX%20Rotterdam&output=embed"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTY RENTAL -->
+  <section id="verhuur" class="reveal">
+    <div class="wrap">
+      <div class="sectionHead reveal">
+        <div>
+          <div class="chip"><b>Verhuur</b> • Events & Feestdagen</div>
+          <h2>Huur Mozaik voor jouw Feest</h2>
+        </div>
+        <p>Perfect voor verjaarsdagen, bedrijfsfeesten, bruiloften en andere speciale gelegenheden.</p>
+      </div>
+
+      <div class="contactGrid">
+        <div class="contactCard reveal">
+          <h3>Verhuurmogelijkheden</h3>
+          <div class="list">
+            <div class="item">
+              <div><b>🎉 Verjaarsdagen</b><small>Gezellige setting voor je speciale dag</small></div>
+            </div>
+            <div class="item">
+              <div><b>💼 Bedrijfsfeesten</b><small>Perfecte plek voor jouw team</small></div>
+            </div>
+            <div class="item">
+              <div><b>💒 Bruiloften</b><small>Romantische en elegante ambiance</small></div>
+            </div>
+            <div class="item">
+              <div><b>🎓 Private Events</b><small>Alle gelegenheden welkom</small></div>
+            </div>
+          </div>
+
+          <div style="height:14px"></div>
+
+          <div class="heroActions">
+            <a class="btn primary" href="mailto:info@mozaik.nl">Stuur een e-mail</a>
+            <a class="btn" href="tel:+31643496926">Bel voor meer info</a>
+          </div>
+        </div>
+
+        <div class="contactCard reveal">
+          <h3>Info & Vragen</h3>
+          <div class="list">
+            <div class="item">
+              <div><b>Capaciteit</b><small>Tot 150+ gasten mogelijk</small></div>
+            </div>
+            <div class="item">
+              <div><b>Locatie</b><small>Oostzeedijk 243, Rotterdam</small></div>
+            </div>
+            <div class="item">
+              <div><b>Catering</b><small>Volledig verzorgd menu beschikbaar</small></div>
+            </div>
+            <div class="item">
+              <div><b>Beschikbaarheid</b><small>Flexibele data's, ook buiten openingstijden</small></div>
+            </div>
+          </div>
+
+          <div style="height:14px"></div>
+
+          <div class="heroActions">
+            <a class="btn primary" href="mailto:info@mozaik.nl?subject=Verhuuronderzoek">Informeer naar prijzen</a>
+            <a class="btn" href="tel:+31643496926">06 43496926</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="reveal">
+    <div class="wrap foot">
+      <div>
+        <h3 style="font-size:1.5rem">Mozaik Pizzeria Eethuis</h3>
+        <p style="margin-top:10px">
+          De beste pizzeria van Rotterdam • sinds dag één
+        </p>
+      </div>
+      <div class="fine">
+        <div><b>Adres:</b> Oostzeedijk 243, Rotterdam</div>
+        <div style="margin-top:6px"><b>Tel:</b> 06 43496926</div>
+        <div style="margin-top:6px">© 2026 • made by JZ WEB SOLUTIONS</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WhatsApp -->
+  <a class="wa" href="https://wa.me/31643496926" target="_blank" rel="noopener"
+     title="Chat via WhatsApp" aria-label="Chat via WhatsApp met Mozaik Pizzeria Eethuis">💬</a>
+
+  <script>
+    // =========================
+    // IMAGE SET (pizza + correct drinks/snacks)
+    // =========================
+    const IMG = {
+      heroBg:  "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1800&q=80",
+      rot:     "https://images.unsplash.com/photo-1542281286-9e0a16bb7366?auto=format&fit=crop&w=1600&q=80",
+      p1:      "https://images.unsplash.com/photo-1498654896293-37aacf113fd9?auto=format&fit=crop&w=1200&q=80",
+      p2:      "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80",
+      p3:      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80",
+      p4:      "https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=1600&q=80",
+      snacks:  "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80",
+      drinks:  "https://images.unsplash.com/photo-1542444459-db6a0a3d1f45?auto=format&fit=crop&w=1200&q=80"
+    };
+
+    function safeSetImg(imgEl, url, fallback){
+      const t = new Image();
+      t.onload = () => { imgEl.src = url; };
+      t.onerror = () => { imgEl.src = fallback; };
+      t.src = url;
+      imgEl.onerror = () => { imgEl.src = fallback; };
+    }
+    function safeSetCssVar(el, varName, url, fallback){
+      const t = new Image();
+      t.onload = () => { el.style.setProperty(varName, `url("${url}")`); };
+      t.onerror = () => { el.style.setProperty(varName, `url("${fallback}")`); };
+      t.src = url;
+    }
+
+    // Apply hero background + rotating pizza
+    const heroCard = document.getElementById("heroCard");
+    safeSetCssVar(heroCard, "--heroimg", IMG.heroBg, IMG.p2);
+    
+    // OPMERKING: De code hieronder die de pizza-foto laadde is uitgezet
+    // zodat jouw eigen logo niet overschreven wordt.
+    // safeSetImg(document.getElementById("rotPizza"), IMG.rot, IMG.p2);
+
+    // About cards pizza backgrounds
+    safeSetCssVar(document.getElementById("card1"), "--cardimg", IMG.p1, IMG.p2);
+    safeSetCssVar(document.getElementById("card2"), "--cardimg", IMG.p2, IMG.p1);
+    safeSetCssVar(document.getElementById("card3"), "--cardimg", IMG.p3, IMG.p2);
+
+    // =========================
+    // MENU (tabs)
+    // =========================
+    const MENU = {
+      colddrinks: {
+        title: "🥤 Koude Dranken",
+        tag: "Vers • koud",
+        photo: IMG.drinks,
+        items: [
+          { name:"Hamidiye Water", desc:"", price:"€1,50" },
+          { name:"Spa Water", desc:"", price:"€2" },
+          { name:"Spa Rood", desc:"", price:"€2,50" },
+          { name:"Ayran", desc:"", price:"€1,50" },
+          { name:"Redbull", desc:"", price:"€3" },
+          { name:"Slammers Energy", desc:"", price:"€1,50" },
+          { name:"Golden Power", desc:"", price:"€2" },
+          { name:"Coca Cola (soorten)", desc:"", price:"€2,50" },
+          { name:"Fanta (soorten)", desc:"", price:"€2,50" },
+          { name:"Poms", desc:"", price:"€2,50" },
+          { name:"Hawai", desc:"", price:"€2,50" },
+          { name:"Sprite", desc:"", price:"€2,50" },
+          { name:"Lipton (soorten)", desc:"", price:"€2,50" },
+          { name:"Uludag (soorten)", desc:"", price:"€2,50" },
+          { name:"Fernandes (soorten)", desc:"", price:"€2,50" },
+          { name:"AA", desc:"", price:"€2,50" },
+          { name:"Fristi", desc:"", price:"€3,50" },
+          { name:"Chocomel", desc:"", price:"€3,50" }
+        ]
+      },
+      hotdrinks: {
+        title: "☕ Warme Dranken",
+        tag: "Warm & gezellig",
+        photo: IMG.drinks,
+        items: [
+          { name:"Turkse Thee/Çay Klein", desc:"", price:"€1,50" },
+          { name:"Turkse Thee/Çay Groot", desc:"", price:"€2,50" },
+          { name:"Koffie", desc:"", price:"€2,50" },
+          { name:"Cappuccino", desc:"", price:"€3" },
+          { name:"Latte Macchiato", desc:"", price:"€3" },
+          { name:"Espresso", desc:"", price:"€2,50" },
+          { name:"Chocolademelk", desc:"", price:"€3" }
+        ]
+      },
+      doner: {
+        title: "🥙 Doner",
+        tag: "Vers • lekker",
+        photo: IMG.p2,
+        items: [
+          { name:"Broodje Doner", desc:"", price:"€6" },
+          { name:"Durum Doner", desc:"", price:"€7" },
+          { name:"Doner Schotel", desc:"", price:"€8" },
+          { name:"Kapsalon Klein", desc:"", price:"€5" },
+          { name:"Kapsalon Groot", desc:"", price:"€7,50" }
+        ]
+      },
+      turkishpizza: {
+        title: "🍕 Turkse Pizza",
+        tag: "Speciaal • warm",
+        photo: IMG.heroBg,
+        items: [
+          { name:"Turkse Pizza", desc:"", price:"€4,50" },
+          { name:"Turkse Pizza met Kaas", desc:"", price:"€5,50" },
+          { name:"Turkse Pizza met Vlees", desc:"", price:"€7" },
+          { name:"Turkse Pizza Speciaal", desc:"", price:"€8" },
+          { name:"Bakje saus", desc:"", price:"€0,75" }
+        ]
+      },
+      pide: {
+        title: "🥖 Pide",
+        tag: "Traditioneel • vers",
+        photo: IMG.p1,
+        items: [
+          { name:"Peynirli Pide", desc:"Traditioneel Turks brood met gesmolten kaas", price:"€7" },
+          { name:"Etli Ekmek", desc:"Traditioneel Turks brood met gekruid gehakt", price:"€8" },
+          { name:"Sucuklu Pide", desc:"Traditioneel Turks brood met gesmolten kaas en sucuk", price:"€9" },
+          { name:"Karışık Pide", desc:"Traditioneel Turks brood met gesmolten kaas, sucuk & ei", price:"€10" },
+          { name:"Kusbasi Pide", desc:"Traditioneel Turks brood met blokjes rundvlees", price:"€11" },
+          { name:"Tavuklu Pide", desc:"Traditioneel Turks brood met gesmolten kaas & kip", price:"€9" }
+        ]
+      },
+      soup: {
+        title: "🍲 Soep",
+        tag: "Warm • voedzaam",
+        photo: IMG.p3,
+        items: [
+          { name:"Turkse Linzensoep / Mercimek Çorbası", desc:"", price:"€5" },
+          { name:"Soep van de dag / Günün Çorbası", desc:"", price:"€5" }
+        ]
+      },
+      pizza: {
+        title: "🍕 Pizza",
+        tag: "Klassiek • lekker",
+        photo: IMG.heroBg,
+        items: [
+          { name:"Pizza Margherita", desc:"Tomatensaus & kaas", price:"€9" },
+          { name:"Pizza Pollo", desc:"Tomatensaus, kaas, kip, paprika & champignon", price:"€12" },
+          { name:"Pizza Vegetariana", desc:"Tomatensaus, kaas, paprika, ui & champignons", price:"€9" },
+          { name:"Pizza Tonno", desc:"Tomatensaus, kaas, tonijn, ui & olijven", price:"€10" },
+          { name:"Pizza Döner", desc:"Tomatensaus, kaas & kip döner", price:"€10" },
+          { name:"Pizza Sucuk", desc:"Tomatensaus, kaas & sucuk", price:"€10" },
+          { name:"Pizza Four Cheese", desc:"Tomatensaus & vier soorten kaas", price:"€12" },
+          { name:"Pizza Salami", desc:"Tomatensaus, kaas & salami", price:"€10" },
+          { name:"Pizza Shoarma", desc:"Tomatensaus, kaas & shoarma", price:"€12" },
+          { name:"Pizza Funghi", desc:"Tomatensaus, kaas & champignons", price:"€10" },
+          { name:"Pizza Barbeque Kip", desc:"Tomatensaus, kaas, kip & barbecuesaus", price:"€12" }
+        ]
+      },
+      pasta: {
+        title: "🍝 Pasta",
+        tag: "Italiaans • vers",
+        photo: IMG.p4,
+        items: [
+          { name:"Pasta Arrabiata", desc:"Een klassieke Italiaanse pasta met tomatensaus", price:"€10" },
+          { name:"Pasta Bolognese", desc:"Een klassieke Italiaanse pasta met tomatensaus en gehakt", price:"€11" },
+          { name:"Pasta Pollo", desc:"Romige pasta met malse kipfilet en champignons in een zachte roomsaus", price:"€12" },
+          { name:"Pasta Pesto", desc:"Pasta met een aromatische basilicumpesto", price:"€12" }
+        ]
+      }
+    };
+
+    const menuTitle = document.getElementById("menuTitle");
+    const menuTag = document.getElementById("menuTag");
+    const menuItems = document.getElementById("menuItems");
+    const menuPhoto = document.getElementById("menuPhoto");
+    const tabs = document.querySelectorAll(".tab");
+
+    function renderMenu(key){
+      const m = MENU[key];
+      menuTitle.textContent = m.title;
+      menuTag.textContent = m.tag;
+      safeSetCssVar(menuPhoto, "--menuphoto", m.photo, IMG.p2);
+
+      menuItems.innerHTML = m.items.map(it => `
+        <div class="item">
+          <div>
+            <b>${it.name}</b>
+            <small>${it.desc}</small>
+          </div>
+          <div class="price">${it.price}</div>
+        </div>
+      `).join("");
+    }
+    renderMenu("colddrinks");
+
+    tabs.forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        tabs.forEach(t=>{
+          t.classList.remove("active");
+          t.setAttribute("aria-selected","false");
+        });
+        btn.classList.add("active");
+        btn.setAttribute("aria-selected","true");
+        renderMenu(btn.dataset.tab);
+      });
+    });
+
+    // Mobile menu
+    const burger = document.getElementById('burger');
+    const navLinks = document.getElementById('navLinks');
+    const toggleMenu = () => navLinks.classList.toggle('open');
+
+    if(burger){
+      burger.addEventListener('click', toggleMenu);
+      burger.addEventListener('keydown', (e)=>{ if(e.key === 'Enter') toggleMenu(); });
+    }
+
+    // Close menu on link click (mobile)
+    document.querySelectorAll('.links a').forEach(a=>{
+      a.addEventListener('click', ()=> navLinks.classList.remove('open'));
+    });
+
+    // Nav shrink on scroll
+    const nav = document.querySelector('.nav');
+    window.addEventListener('scroll', ()=>{
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // ✅ REVEAL ON SCROLL (FIXED + STAGGER)
+    const revealEls = Array.from(document.querySelectorAll('.reveal'));
+    revealEls.forEach((el, i) => {
+      el.style.setProperty("--d", `${Math.min(i * 70, 520)}ms`);
+    });
+
+    if (!("IntersectionObserver" in window)) {
+      revealEls.forEach(el => el.classList.add("in"));
+    } else {
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach((en) => {
+          if (en.isIntersecting) {
+            en.target.classList.add("in");
+            obs.unobserve(en.target);
+          }
+        });
+      }, {
+        threshold: 0.12,
+        rootMargin: "0px 0px -10% 0px"
+      });
+
+      revealEls.forEach(el => obs.observe(el));
+    }
+
+    // Subtle tilt parallax on hero card (luxury)
+    const hc = document.getElementById("heroCard");
+    let raf = null;
+    function onMove(e){
+      const r = hc.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      if(raf) cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(()=>{
+        hc.style.transform = `translateY(-4px) rotateX(${(-y*6).toFixed(2)}deg) rotateY(${(x*6).toFixed(2)}deg)`;
+      });
+    }
+    function resetTilt(){ hc.style.transform = ""; }
+    hc.addEventListener("mousemove", onMove);
+    hc.addEventListener("mouseleave", resetTilt);
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
